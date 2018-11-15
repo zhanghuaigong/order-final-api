@@ -26,6 +26,8 @@ public class OrderEventServiceImpl implements OrderEventService {
 	@Override
 	public boolean sendOrderEventMq(Long orderId, boolean isSuccess) {
 		try {
+			logger.info("aaaaaaaaaaaaaaaaaaaaaaaa");
+
 			OrderEventMessageQueue mQueue = new OrderEventMessageQueue();
 			mQueue.setOrderId(orderId);
 			if(isSuccess){
