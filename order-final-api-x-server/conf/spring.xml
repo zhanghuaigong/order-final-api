@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 属性文件读入 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>conf/app/app.properties</value>
+				<value>conf/app/db.properties</value>
+				<value>conf/app/dubbo.properties</value>
+				<value>conf/app/redis.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding">
+			<value>utf-8</value>
+		</property>
+	</bean>
+	<bean id="logInitialization"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="ch.qos.logback.ext.spring.LogbackConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments">
+			<value>conf/logback.xml</value>
+		</property>
+	</bean>
+
+	<import resource="spring-db.xml" />
+	<import resource="spring-service.xml" />
+	<import resource="spring-dubbo.xml" />
+	<import resource="spring-dubbo-ref.xml" />
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.dang.order" />
+</beans>

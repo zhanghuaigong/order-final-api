@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+	default-autowire="byName">
+    <!-- ref -->
+	<dubbo:registry id="dubboReg" protocol="zookeeper" address="${zookeeper.url}"/>
+	<!--
+    <dubbo:reference id="orderListService" interface="com.dang.order.batch.api.OrderListService" protocol="dubbo"
+					 timeout="5000" check="false" registry="dubboReg"/>
+					 -->
+
+	<dubbo:reference id="orderEventMessageQueueService" interface="com.dang.order.OrderBase_messagequeue_api.api.OrderEventMessageQueueService" protocol="dubbo"
+					 timeout="2000" check="false" registry="dubboReg"/>
+
+	<dubbo:reference id="orderEventQueueService" interface="com.dang.order.event.api.OrderEventQueueService" protocol="dubbo"
+					 timeout="2000" check="false" registry="dubboReg"/>
+</beans>

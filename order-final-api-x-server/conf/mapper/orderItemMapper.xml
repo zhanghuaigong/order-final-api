@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dang.order.finalapi.dao.OrderItemDao">
+	<resultMap id="orderItemRM" type="com.dang.order.finalapi.dto.db.OrderItem">
+		<result property="orderId" column="order_id" />
+		<result property="productId" column="product_id" />
+		<result property="medium" column="medium" />
+		<result property="productType" column="product_type" />
+		<result property="relationType" column="relation_type" />
+		<result property="allotQuantity" column="allot_quantity" />
+	</resultMap>
+
+	<sql id="columns">
+		<![CDATA[ order_id,product_id,medium,product_type,relation_type,allot_quantity ]]>
+	</sql>
+
+	<select id="selectByOrderId" resultMap="orderItemRM" parameterType="java.util.HashMap">
+		select <include refid="columns" />
+		from order_items with(nolock)
+		WHERE order_id = #{orderId}
+	</select>
+
+</mapper>

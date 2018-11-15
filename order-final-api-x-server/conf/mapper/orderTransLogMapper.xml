@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dang.order.finalapi.dao.OrderTransLogDao">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="log_id"
+			parameterType="com.dang.order.finalapi.dao.criteria.OrderTranslogCriteria">
+		INSERT INTO order_trans_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id ,
+			</if>
+			<if test="operatorId != null">
+				operator_id ,
+			</if>
+			<if test="operatorType != null">
+				operator_type ,
+			</if>
+			<if test="transDesc != null">
+				trans_desc ,
+			</if>
+			<if test="transDescId != null">
+				trans_desc_id ,
+			</if>
+			<if test="operateId != null">
+				operate_id ,
+			</if>
+			<if test="orderStatus != null">
+				order_status ,
+			</if>
+			trans_date
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=BIGINT} ,
+			</if>
+			<if test="operatorId != null">
+				#{operatorId} ,
+			</if>
+			<if test="operatorType != null">
+				#{operatorType} ,
+			</if>
+			<if test="transDesc != null">
+				#{transDesc} ,
+			</if>
+			<if test="transDescId != null">
+				#{transDescId} ,
+			</if>
+			<if test="operateId != null">
+				#{operateId} ,
+			</if>
+			<if test="orderStatus != null">
+				#{orderStatus} ,
+			</if>
+			getdate()
+		</trim>
+	</insert>
+</mapper>

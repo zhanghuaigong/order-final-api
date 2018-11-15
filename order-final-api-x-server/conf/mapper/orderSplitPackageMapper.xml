@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dang.order.finalapi.dao.OrderSplitPackageDao">
+	<update id="update" parameterType="com.dang.order.finalapi.dao.criteria.OrderSplitPackageCriteria" >
+		UPDATE order_split_package
+		SET package_status = #{packageStatus},
+			last_changed_date=getdate()
+		WHERE
+			order_id = #{orderId}
+		AND package_status in
+		<foreach collection="oldStatusList" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+</mapper>

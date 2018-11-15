@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+	default-autowire="byName">
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry id="regcenter" protocol="zookeeper" address="${zookeeper.url}" />
+	<!-- 暴露用dubbo协议服务端口号 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.port}" threads="500" />
+	<dubbo:protocol name="rest" port="${rest.port}" threads="500" contextpath="order" server="tomcat" />
+	<dubbo:provider filter="logFilter"></dubbo:provider>
+	<dubbo:consumer filter="logFilter"></dubbo:consumer>
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.dang.order.finalapi.api.OrderFinalService" ref="orderFinalService" protocol="dubbo,rest" registry="regcenter"/>
+
+	<!-- 本应用在zk提供者名称 -->
+	<dubbo:application name="order-final-api"/>
+</beans>

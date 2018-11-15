@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+					       http://www.springframework.org/schema/context 
+					       http://www.springframework.org/schema/context/spring-context-4.3.xsd
+						   http://www.springframework.org/schema/aop 
+						   http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+					       http://www.springframework.org/schema/tx 
+					       http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+						   http://www.springframework.org/schema/jdbc 
+						   http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd ">
+
+	<bean id="sqlSessionFactory" class="com.dang.order.persistence.ds.SqlSessionFactoryBean">
+		<property name="mapperLocations" value="conf/mapper/**Mapper.xml" />
+		<property name="configLocation" value="conf/mybatis-config.xml" />
+	</bean>
+
+	<bean id="order0Ds" class="org.apache.tomcat.jdbc.pool.DataSource"
+		  destroy-method="close">
+		<property name="driverClassName" value="${jdbc.order0.driver}" />
+		<property name="url" value="${jdbc.order0.url}" />
+		<property name="username" value="${jdbc.order0.username}" />
+		<property name="password" value="${jdbc.order0.password}" />
+		<property name="testOnBorrow" value="true"/>
+		<property name="validationQuery" value="select 1"/>
+		<property name="maxActive" value="${jdbc.maxactive}" />
+		<property name="maxIdle" value="${jdbc.maxidle}" />
+		<property name="removeAbandoned" value="true"/>
+		<property name="removeAbandonedTimeout" value="5"/>
+	</bean>
+	<bean id="order1Ds" class="org.apache.tomcat.jdbc.pool.DataSource"
+		  destroy-method="close">
+		<property name="driverClassName" value="${jdbc.order1.driver}" />
+		<property name="url" value="${jdbc.order1.url}" />
+		<property name="username" value="${jdbc.order1.username}" />
+		<property name="password" value="${jdbc.order1.password}" />
+		<property name="testOnBorrow" value="true"/>
+		<property name="validationQuery" value="select 1"/>
+		<property name="maxActive" value="${jdbc.maxactive}" />
+		<property name="maxIdle" value="${jdbc.maxidle}" />
+		<property name="removeAbandoned" value="true"/>
+		<property name="removeAbandonedTimeout" value="5"/>
+	</bean>
+
+	<bean id="orderHisDs0" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="driverClassName" value="${jdbc.order0.his.driver}" />
+		<property name="url" value="${jdbc.order0.his.url}" />
+		<property name="username" value="${jdbc.order0.his.username}" />
+		<property name="password" value="${jdbc.order0.his.password}" />
+		<property name="testOnBorrow" value="true"/>
+		<property name="validationQuery" value="select 1"/>
+		<property name="maxActive" value="${jdbc.maxactive}" />
+		<property name="maxIdle" value="${jdbc.maxidle}" />
+		<property name="removeAbandoned" value="true"/>
+		<property name="removeAbandonedTimeout" value="5"/>
+	</bean>
+	<bean id="orderHisDs1" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="driverClassName" value="${jdbc.order1.his.driver}" />
+		<property name="url" value="${jdbc.order1.his.url}" />
+		<property name="username" value="${jdbc.order1.his.username}" />
+		<property name="password" value="${jdbc.order1.his.password}" />
+		<property name="testOnBorrow" value="true"/>
+		<property name="validationQuery" value="select 1"/>
+		<property name="maxActive" value="${jdbc.maxactive}" />
+		<property name="maxIdle" value="${jdbc.maxidle}" />
+		<property name="removeAbandoned" value="true"/>
+		<property name="removeAbandonedTimeout" value="5"/>
+	</bean>
+
+	<bean id="dataSourceManager" class="com.dang.order.persistence.ds.DataSourceManager">
+		<property name="dataSourceMap">
+			<map>
+				<entry key="order0" value-ref="order0Ds" />
+				<entry key="order1" value-ref="order1Ds" />
+				<entry key="orderHis0" value-ref="orderHisDs0" />
+				<entry key="orderHis1" value-ref="orderHisDs1" />
+			</map>
+		</property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="sessionTemplate" class="com.dang.order.persistence.ds.SessionTemplate">
+		<property name="dataSourceManager" ref="dataSourceManager"/>
+	</bean>
+</beans>

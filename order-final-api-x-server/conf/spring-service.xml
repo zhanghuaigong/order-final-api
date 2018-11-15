@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<bean id="jedisCluster" class="com.dang.order.util.redis.RedisFactoryBean">
+		<property name="clientConfig" ref="redisClientConfig" />
+	</bean>
+
+	<bean id="redisClientConfig" class="com.dang.order.util.redis.ClientConfig">
+		<property name="clusterName" value="redisCluster" />
+		<property name="clusterNodes" value="${redis.cluster.nodes}" />
+		<property name="timeout" value="1000" />
+		<property name="maxAttempts" value="1" />
+	</bean>
+</beans>
