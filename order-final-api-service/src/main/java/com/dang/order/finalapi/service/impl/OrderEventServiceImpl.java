@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.ws.rs.HEAD;
 import java.util.Date;
 
 @Service
@@ -27,7 +28,8 @@ public class OrderEventServiceImpl implements OrderEventService {
 	public boolean sendOrderEventMq(Long orderId, boolean isSuccess) {
 		try {
 			logger.info("第一次修改");
-			logger.info("第二次修改,我再加点日志");
+			logger.info("第二次修改,我再加点日志,合并了");
+
 
 			OrderEventMessageQueue mQueue = new OrderEventMessageQueue();
 			mQueue.setOrderId(orderId);
