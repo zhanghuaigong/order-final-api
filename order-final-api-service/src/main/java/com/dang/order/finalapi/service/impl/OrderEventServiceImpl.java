@@ -32,6 +32,7 @@ public class OrderEventServiceImpl implements OrderEventService {
 
 
 			OrderEventMessageQueue mQueue = new OrderEventMessageQueue();
+			logger.info("后面加一行");
 			mQueue.setOrderId(orderId);
 			if(isSuccess){
 				mQueue.setEventType(Constants.ORDER_MSG_EVENT_TYPE_SUCCESS);
