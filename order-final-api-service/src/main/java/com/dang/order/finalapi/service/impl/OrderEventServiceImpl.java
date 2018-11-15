@@ -30,7 +30,7 @@ public class OrderEventServiceImpl implements OrderEventService {
 			logger.info("第一次修改");
 			logger.info("第二次修改,我再加点日志,合并了");
 
-
+			logger.info("前面加一行");
 			OrderEventMessageQueue mQueue = new OrderEventMessageQueue();
 			mQueue.setOrderId(orderId);
 			if(isSuccess){
