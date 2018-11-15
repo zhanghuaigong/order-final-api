@@ -27,7 +27,7 @@ public class OrderEventServiceImpl implements OrderEventService {
 	@Override
 	public boolean sendOrderEventMq(Long orderId, boolean isSuccess) {
 		try {
-			logger.info("dev分支修改");
+			logger.info("dev分支修改,master加点日志");
 
 			logger.info("第一次修改");
 			logger.info("第二次修改,我再加点日志,合并了");
