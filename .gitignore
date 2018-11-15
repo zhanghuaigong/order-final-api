@@ -1,1 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/
+order-final-api-api/order-final-api-api.iml
+order-final-api-dao/order-final-api-dao.iml
+order-final-api-dto/order-final-api-dto.iml
+order-final-api-service/order-final-api-service.iml
+order-final-api-x-server/order-final-api-x-server.iml
+order-final-api.iml
