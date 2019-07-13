@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 public class Test {
 	public static void main(String[] args) {
 		try {
-			System.out.println("devdevdev");
+			System.out.println("dev");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
